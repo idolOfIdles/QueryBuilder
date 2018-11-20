@@ -1,6 +1,6 @@
-package main.java.queryBuilder;
+package queryBuilder;
 
-import main.java.queryBuilder.util.Util;
+import queryBuilder.util.Util;
 
 import java.util.List;
 

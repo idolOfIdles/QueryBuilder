@@ -1,9 +1,7 @@
-package test.java;
-
-import main.java.queryBuilder.MysqlCondition;
-import main.java.queryBuilder.MysqlGroupBy;
-import main.java.queryBuilder.MysqlQuery;
-import main.java.queryBuilder.util.Util;
+import queryBuilder.MysqlCondition;
+import queryBuilder.MysqlGroupBy;
+import queryBuilder.MysqlQuery;
+import queryBuilder.util.Util;
 
 /**
  * Created by safayat on 11/18/18.

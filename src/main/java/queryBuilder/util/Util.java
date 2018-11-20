@@ -1,4 +1,4 @@
-package main.java.queryBuilder.util;
+package queryBuilder.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package main.java.queryBuilder;
+package queryBuilder;
 
 /**
  * Created by safayat on 10/16/18.
