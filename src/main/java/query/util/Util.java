@@ -1,4 +1,4 @@
-package queryBuilder.util;
+package query.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -41,6 +41,13 @@ public class Util {
     public static String toQuote(String str) {
         return "\"" + str + "\"";
     }
+
+    public static String toTitle(String str) {
+        char[] chars = str.toCharArray();
+        chars[0] = upper(chars[0]);
+        return new String(chars);
+    }
+
 
 
 

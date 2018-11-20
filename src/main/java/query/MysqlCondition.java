@@ -1,6 +1,6 @@
-package queryBuilder;
+package query;
 
-import queryBuilder.util.Util;
+import query.util.Util;
 
 import java.util.List;
 

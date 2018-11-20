@@ -1,4 +1,4 @@
-package queryBuilder;
+package query;
 
 /**
  * Created by safayat on 10/16/18.
@@ -33,7 +33,7 @@ public class MysqlOrder implements MysqlQueryInterface{
 
 
     @Override
-    public queryBuilder.MysqlQuery getQuery() {
+    public query.MysqlQuery getQuery() {
         return mysqlQuery.getQuery();
     }
 }

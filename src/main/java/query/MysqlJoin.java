@@ -1,4 +1,4 @@
-package queryBuilder;
+package query;
 
 /**
  * Created by safayat on 10/16/18.

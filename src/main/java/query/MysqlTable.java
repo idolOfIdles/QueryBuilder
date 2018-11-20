@@ -1,6 +1,4 @@
-package queryBuilder;
-
-import queryBuilder.util.Util;
+package query;
 
 import java.util.List;
 
@@ -15,7 +13,7 @@ public class MysqlTable implements MysqlQueryInterface{
     private MysqlQueryInterface mysqlQuery;
     private MysqlCondition mysqlCondition;
     private MysqlOrder mysqlOrder;
-    private queryBuilder.MysqlGroupBy mysqlGroupBy;
+    private query.MysqlGroupBy mysqlGroupBy;
 
     public MysqlTable(MysqlQueryInterface mysqlQuery){
         this.mysqlQuery = mysqlQuery;
