@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InsertQuery implements CrudInterface {
+public class InsertQuery{
     StringBuilder insertBuilder;
 
     public InsertQuery(String table) {
@@ -17,12 +17,10 @@ public class InsertQuery implements CrudInterface {
         insertBuilder.append("insert into ").append(table);
     }
 
-    @Override
-    public CrudSet set(String field, Object value) {
+    public SetInsert set(String field, Object value) {
         return new SetInsert(insertBuilder).set(field, value);
     }
 
-    @Override
     public String values(Object value) {
         return insertBuilder.append(createInsertValuesString(value)).toString();
     }

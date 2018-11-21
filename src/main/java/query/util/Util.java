@@ -1,5 +1,8 @@
 package query.util;
 
+import com.sun.org.apache.xpath.internal.operations.*;
+
+import java.lang.String;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,6 +49,14 @@ public class Util {
         char[] chars = str.toCharArray();
         chars[0] = upper(chars[0]);
         return new String(chars);
+    }
+
+    public static void removeLastCharacter(StringBuilder stringBuilder) {
+        if(stringBuilder.length()>0) stringBuilder.deleteCharAt(stringBuilder.length()-1);
+    }
+
+    public static void rightStripIfExists(StringBuilder stringBuilder, char suffix) {
+        if(stringBuilder.charAt(stringBuilder.length()-1) == suffix) removeLastCharacter(stringBuilder);
     }
 
 

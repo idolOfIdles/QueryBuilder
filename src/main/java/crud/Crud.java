@@ -14,6 +14,9 @@ public class Crud {
     public InsertQuery insert(String table){
         return new InsertQuery(table);
     }
+    public UpdateQuery update(String table){
+        return new UpdateQuery(table);
+    }
 
 
 

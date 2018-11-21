@@ -19,8 +19,7 @@ public class SetInsert implements CrudSet {
         values = new ArrayList<Object>();
     }
 
-    @Override
-    public CrudSet set(String field, Object value) {
+    public SetInsert set(String field, Object value) {
         fields.add(field);
         values.add(value);
         return this;

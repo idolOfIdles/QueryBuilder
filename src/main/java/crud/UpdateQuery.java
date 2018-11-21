@@ -1,7 +1,5 @@
 package crud;
 
-import interfaces.CrudInterface;
-import interfaces.CrudSet;
 import query.util.Util;
 
 import java.lang.reflect.Field;
@@ -9,47 +7,47 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UpdateQuery implements CrudInterface {
-    StringBuilder insertBuilder;
+public class UpdateQuery {
+    StringBuilder updateBuilder;
 
     public UpdateQuery(String table) {
-        this.insertBuilder = new StringBuilder();
-        insertBuilder.append("update ").append(table);
+        this.updateBuilder = new StringBuilder();
+        updateBuilder.append("update ").append(table);
     }
 
-    @Override
-    public CrudSet set(String field, Object value) {
-        return new SetInsert(insertBuilder).set(field, value);
+    public SetUpdate set(String field, Object value) {
+        updateBuilder.append(" set ");
+        return new SetUpdate(updateBuilder).set(field, value);
     }
 
-    @Override
-    public String values(Object value) {
-        return insertBuilder.append(createInsertValuesString(value)).toString();
+    public String values(Object value, String primaryKey) throws Exception {
+        ArrayList<String> primaryKeys = new ArrayList<String>();
+        primaryKeys.add(primaryKey);
+        return updateBuilder.append(createSingleRowUpdateSqlString(value, primaryKeys)).toString();
+    }
+
+    public String values(Object value, List<String> primaryKeys) throws Exception {
+        return updateBuilder.append(createSingleRowUpdateSqlString(value, primaryKeys)).toString();
     }
 
 
-    private String createInsertValuesString(Object o){
+    private String createSingleRowUpdateSqlString(Object o, List<String> primaryKeys) throws Exception{
+        if(primaryKeys.size() == 0) throw new Exception("Primary key/value not found");
+        StringBuilder fieldSetBuilder = new StringBuilder();
         Field[] fields = o.getClass().getDeclaredFields();
-        List<String> variableNames = new ArrayList<String>();
-        StringBuilder stringBuilder = new StringBuilder("(");
+        fieldSetBuilder.append(" set ");
         for(Field field : fields){
-            variableNames.add(field.getName());
-            stringBuilder.append(field.getName()).append(",");
-
+            Method method = o.getClass().getDeclaredMethod("get"+ Util.toTitle(field.getName()));
+            fieldSetBuilder.append(field.getName()).append("=").append(Util.toMysqlString(method.invoke(o))).append(",");
         }
-        stringBuilder.setCharAt(stringBuilder.length()-1, ')');
-        stringBuilder.append("values(");
-        for(Field field : fields){
-            try {
-                Method method = o.getClass().getDeclaredMethod("get"+ Util.toTitle(field.getName()));
-                stringBuilder.append(Util.toMysqlString(method.invoke(o))).append(",");
-            } catch (Exception e) {
-                stringBuilder.append("NULL");
-            }
+        Util.rightStripIfExists(fieldSetBuilder, ',');
+        fieldSetBuilder.append(" where 1=1");
+        for(String primaryKey : primaryKeys){
+            Method method = o.getClass().getDeclaredMethod("get"+ Util.toTitle(primaryKey));
+            fieldSetBuilder.append(" and ").append(primaryKey).append("=").append(Util.toMysqlString(method.invoke(o))).append(",");
         }
-        stringBuilder.setCharAt(stringBuilder.length()-1, ')');
-        stringBuilder.append(")");
-        return stringBuilder.toString();
+        Util.rightStripIfExists(fieldSetBuilder, ',');
+        return fieldSetBuilder.toString();
 
 
     }
